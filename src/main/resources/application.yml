@@ -1,0 +1,83 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: springboot-app
+  
+  # Configuração MongoDB
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/springboot_db
+      auto-index-creation: true
+  
+  # Configuração Redis
+  redis:
+    host: localhost
+    port: 6379
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  
+  # Configuração Cache
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000 # 10 minutos
+      cache-null-values: false
+  
+  # Configuração Jackson
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# Configuração Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Configuração OpenAPI/Swagger
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+  show-actuator: true
+
+# Configuração de Logging
+logging:
+  level:
+    com.example.app: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.cache: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Configurações customizadas da aplicação
+app:
+  external-api:
+    base-url: https://jsonplaceholder.typicode.com
+    timeout: 5000
+    retry-attempts: 3
+  
+  cache:
+    default-ttl: 300 # 5 minutos
+    user-ttl: 600    # 10 minutos
+

@@ -1,0 +1,40 @@
+# Configuração para ambiente de desenvolvimento
+server:
+  port: 8080
+
+spring:
+  # MongoDB para desenvolvimento (pode usar MongoDB local ou Docker)
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/springboot_dev_db
+      auto-index-creation: true
+  
+  # Redis para desenvolvimento
+  redis:
+    host: localhost
+    port: 6379
+    password: # deixar vazio para desenvolvimento local
+  
+  # DevTools
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+# Logging mais detalhado para desenvolvimento
+logging:
+  level:
+    com.example.app: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.data.mongodb: DEBUG
+    org.springframework.cache: DEBUG
+    org.springframework.web.reactive.function.client: DEBUG
+
+# Configurações para desenvolvimento
+app:
+  external-api:
+    base-url: https://jsonplaceholder.typicode.com
+    timeout: 10000 # timeout maior para desenvolvimento
+    retry-attempts: 1
+

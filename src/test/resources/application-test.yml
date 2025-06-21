@@ -1,0 +1,29 @@
+# Configuração para testes
+spring:
+  # Usar banco em memória para testes
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/test_db
+  
+  # Configuração Redis para testes
+  redis:
+    host: localhost
+    port: 6379
+  
+  # Cache desabilitado para testes
+  cache:
+    type: none
+
+# Logging para testes
+logging:
+  level:
+    com.example.app: INFO
+    org.springframework: WARN
+
+# Configurações da aplicação para testes
+app:
+  external-api:
+    base-url: https://jsonplaceholder.typicode.com
+    timeout: 5000
+    retry-attempts: 1
+

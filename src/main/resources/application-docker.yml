@@ -1,0 +1,56 @@
+# Configuração para ambiente Docker
+server:
+  port: 8080
+
+spring:
+  # MongoDB no Docker
+  data:
+    mongodb:
+      uri: mongodb://mongodb:27017/springboot_db
+      auto-index-creation: true
+  
+  # Redis no Docker
+  redis:
+    host: redis
+    port: 6379
+    timeout: 2000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+  
+  # Cache
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000
+      cache-null-values: false
+
+# Actuator para Docker
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Logging para Docker
+logging:
+  level:
+    com.example.app: INFO
+    org.springframework.data.mongodb: WARN
+    org.springframework.cache: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Configurações da aplicação para Docker
+app:
+  external-api:
+    base-url: https://jsonplaceholder.typicode.com
+    timeout: 5000
+    retry-attempts: 3
+
